@@ -7,12 +7,12 @@ interface CardGridProps {
 }
 
 /**
- * Show a pokemons types
+ * Display a list of pokemon cards.
  */
 export function CardGrid({ cardlist, card_component: Card }: CardGridProps) {
   return (
     <div className={"CardGrid"}>
-      {cardlist?.map((cardinfo, i) => (
+      {cardlist?.map((cardinfo) => (
         <li>
           <Card {...cardinfo} key={cardinfo.pokedex_nr} />
         </li>
