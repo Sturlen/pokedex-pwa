@@ -8,4 +8,5 @@ export interface PokemonInfo {
   name?: string
   default_sprite_src?: string
   types?: PokemonType[]
+  flavour_text?: string
 }

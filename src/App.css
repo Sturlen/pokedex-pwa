@@ -64,7 +64,9 @@
   background-color: var(--PokemonCardHeaderColor);
   display: flex;
   flex-direction: row;
+  align-items: center;
   padding-left: 1rem;
+  height: 2em;
 }
 
 .CardSprite {
@@ -73,4 +75,10 @@
   border-bottom-right-radius: 10px;
   height: 96px;
   width: 96px;
+}
+
+.PokedexNr {
+  background-color: var(--PokemonCardBgColor);
+  border-radius: 10px;
+  padding: 0.1em;
 }

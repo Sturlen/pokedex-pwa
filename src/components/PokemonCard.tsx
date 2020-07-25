@@ -6,9 +6,10 @@ import { PokemonInfo } from "../interface/PokemonInfo"
  *
  */
 export default function PokemonCard({
-  name = "",
+  name = "Pokemon",
   pokedex_nr = 0,
   default_sprite_src = default_sprite,
+  flavour_text = "Flavour text goes here",
 }: PokemonInfo) {
   const id = Math.floor(pokedex_nr).toString().padStart(3, "0")
   return (
@@ -23,7 +24,7 @@ export default function PokemonCard({
           src={default_sprite_src}
           alt="Pokemon portrait"
         />
-        <p>{"A pokemon"}</p>
+        <p>{flavour_text}</p>
       </div>
     </div>
   )
