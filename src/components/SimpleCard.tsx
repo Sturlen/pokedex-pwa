@@ -12,7 +12,8 @@ export function SimpleCard({
   types = [],
   default_sprite_src = default_sprite,
 }: PokemonInfo) {
-  const id = "#" + Math.floor(pokedex_nr).toString().padStart(3, "0")
+  const id =
+    "#" + Math.floor(pokedex_nr).toString().padStart(3, "0").substring(0, 3)
   return (
     <div className={"SimpleCard"}>
       <div className={"CardHeader"}>
