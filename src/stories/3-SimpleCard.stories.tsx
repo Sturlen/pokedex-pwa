@@ -1,7 +1,7 @@
 import React from "react"
 import "../unstyle.css"
 import "../App.css"
-import Pikachu from "../interface/mock/PokemonCardPikachu"
+import { Pikachu, BigDummy } from "../interface/mock/PokemonCard"
 import { SimpleCard } from "../components/SimpleCard"
 
 export default {
@@ -18,5 +18,11 @@ export const emptyCard = () => (
 export const SingleType = () => (
   <div className="App">
     <SimpleCard {...Pikachu} />
+  </div>
+)
+
+export const Overflow = () => (
+  <div className="App">
+    <SimpleCard {...BigDummy} />
   </div>
 )
