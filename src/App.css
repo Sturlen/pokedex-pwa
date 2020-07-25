@@ -39,8 +39,9 @@
   position: relative;
   z-index: 0;
   overflow: hidden;
+  padding: 20px;
 
-  width: 20em;
+  max-width: 20em;
 }
 
 .SimpleCard .CardHeader {
@@ -48,13 +49,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 10px;
 
   font-size: 2em;
 }
 
 .SimpleCard .Name {
   font-weight: bolder;
+  text-overflow: ellipsis;
 }
 
 .SimpleCard .PokedexNr {
@@ -63,12 +64,26 @@
 
 .SimpleCard .SpriteBox {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin: 10px;
 }
 
 .SimpleCard .Sprite {
   z-index: 1;
-  margin: 10px;
-  height: 10em;
-  width: 10em;
+  height: 7em;
+  width: 7em;
+}
+
+.SimpleCard .Types {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.SimpleCard .Types li {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 100px;
 }
