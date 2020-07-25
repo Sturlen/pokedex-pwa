@@ -8,8 +8,9 @@
 }
 
 :root {
-  --PokemonCardHeaderColor: #ff0000;
+  --PokemonCardHeaderColor: #ffc2d9;
   --PokemonCardBgColor: #ffffff;
+  --PokemonCardSpriteBgColor: #111111;
 }
 
 .App code {
@@ -54,11 +55,22 @@
 
 .PokemonCard {
   background-color: var(--PokemonCardBgColor);
-  border-radius: 5px;
-  width: min-content;
+  border-radius: 10px;
+  width: max-content;
+  overflow: hidden;
 }
 
 .CardHeader {
+  background-color: var(--PokemonCardHeaderColor);
   display: flex;
   flex-direction: row;
+  padding-left: 1rem;
+}
+
+.CardSprite {
+  background-color: var(--PokemonCardSpriteBgColor);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 96px;
+  width: 96px;
 }
