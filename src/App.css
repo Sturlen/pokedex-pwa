@@ -5,28 +5,20 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 :root {
   --PokemonCardHeaderColor: #ffc2d9;
   --PokemonCardBgColor: #ffffff;
   --PokemonCardSpriteBgColor: #111111;
+  --SimpleCardBgColor: rgb(56, 93, 102);
 }
 
 .App code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -40,45 +32,43 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
+.SimpleCard {
+  background-color: var(--SimpleCardBgColor);
+  border-radius: 20px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.PokemonCard {
-  background-color: var(--PokemonCardBgColor);
-  border-radius: 10px;
-  width: max-content;
+  position: relative;
+  z-index: 0;
   overflow: hidden;
+
+  width: 20em;
 }
 
-.CardHeader {
-  background-color: var(--PokemonCardHeaderColor);
+.SimpleCard .CardHeader {
+  z-index: 2;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  padding-left: 1rem;
-  height: 2em;
+  justify-content: space-between;
+  margin: 10px;
+
+  font-size: 2em;
 }
 
-.CardSprite {
-  background-color: var(--PokemonCardSpriteBgColor);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  height: 96px;
-  width: 96px;
+.SimpleCard .Name {
+  font-weight: bolder;
 }
 
-.PokedexNr {
-  background-color: var(--PokemonCardBgColor);
-  border-radius: 10px;
-  padding: 0.1em;
+.SimpleCard .PokedexNr {
+  font-weight: lighter;
+}
+
+.SimpleCard .SpriteBox {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.SimpleCard .Sprite {
+  z-index: 1;
+  margin: 10px;
+  height: 10em;
+  width: 10em;
 }

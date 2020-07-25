@@ -1,22 +1,22 @@
 import React from "react"
-import PokemonCard from "../components/PokemonCard"
 import "../unstyle.css"
 import "../App.css"
 import Pikachu from "../interface/mock/PokemonCardPikachu"
+import { SimpleCard } from "../components/SimpleCard"
 
 export default {
-  title: "PokemonCard",
-  component: PokemonCard,
+  title: "SimpleCard",
+  component: SimpleCard,
 }
 
 export const emptyCard = () => (
   <div className="App">
-    <PokemonCard />
+    <SimpleCard />
   </div>
 )
 
 export const SingleType = () => (
   <div className="App">
-    <PokemonCard {...Pikachu} />
+    <SimpleCard {...Pikachu} />
   </div>
 )

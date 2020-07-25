@@ -1,12 +1,12 @@
 import React from "react"
 import "./App.css"
+import { SimpleCard } from "./components/SimpleCard"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Hello Kanto!</h1>
-      </header>
+      <SimpleCard />
+      <SimpleCard />
     </div>
   )
 }
