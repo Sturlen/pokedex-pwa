@@ -7,6 +7,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --PokemonCardHeaderColor: #ff0000;
+  --PokemonCardBgColor: #ffffff;
+}
+
 .App code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -45,4 +50,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.PokemonCard {
+  background-color: var(--PokemonCardBgColor);
+  border-radius: 5px;
+  width: min-content;
+}
+
+.CardHeader {
+  display: flex;
+  flex-direction: row;
 }
