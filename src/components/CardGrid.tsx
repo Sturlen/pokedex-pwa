@@ -11,10 +11,12 @@ interface CardGridProps {
  */
 export function CardGrid({ cardlist, card_component: Card }: CardGridProps) {
   return (
-    <div className={"Types"}>
-      {cardlist?.map((cardinfo) => (
-        <Card {...cardinfo} />
-      ))}
+    <div className={"CardGrid"}>
+      {cardlist?.map((cardinfo, i) => (
+        <li>
+          <Card {...cardinfo} key={cardinfo.pokedex_nr} />
+        </li>
+      )) || <p>{"Nothing to see here"}</p>}
     </div>
   )
 }

@@ -87,3 +87,18 @@
   padding-right: 10px;
   border-radius: 100px;
 }
+
+/* Grid */
+
+.CardGrid {
+  padding: 10px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.CardGrid li {
+  margin: 10px;
+}
