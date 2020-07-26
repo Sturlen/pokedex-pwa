@@ -7,6 +7,6 @@ export interface PokemonInfo {
   pokedex_nr?: number
   name?: string
   default_sprite_src?: string
-  types?: PokemonType[]
+  types?: string[]
   flavour_text?: string
 }
