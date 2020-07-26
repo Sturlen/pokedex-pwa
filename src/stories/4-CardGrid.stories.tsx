@@ -12,7 +12,7 @@ const incrPokedexNr = (card: PokemonInfo, i: number) => {
 }
 
 export default {
-  title: "CardGrid",
+  title: "Grid/CardGrid",
   component: CardGrid,
 }
 
