@@ -19,7 +19,7 @@ export function FetchedCardGrid({
   limit = 60,
 }: FetchedCardGridProps) {
   const { data, isError, isLoading } = useQuery({
-    queryKey: "pokemonlist",
+    queryKey: ["pokemonlist", offset, limit],
     queryFn: async () => {
       return query(offset, limit)
     },

@@ -30,7 +30,8 @@ export const OffsetAndLimit = () => {
             setOffset(e.currentTarget.valueAsNumber)
           }}
           title="Offset"
-          max={100}
+          min={1}
+          max={200}
           defaultValue={10}
         />
         <input
@@ -40,6 +41,7 @@ export const OffsetAndLimit = () => {
             setLimit(e.currentTarget.valueAsNumber)
           }}
           title="Limit"
+          min={1}
           max={100}
           defaultValue={50}
         />
