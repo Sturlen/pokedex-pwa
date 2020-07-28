@@ -13,5 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       
-    - name: Run a one-line script
-      run: npm run lint
+    - name: Install and Lint
+      run: | 
+        npm install
+        npm run lint
