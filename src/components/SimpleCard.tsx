@@ -4,7 +4,7 @@ import default_sprite from "./default-sprite.png"
 import { PokemonInfo } from "../interface/PokemonInfo"
 
 /**
- * Simple Pokemon Card
+ * Simple Pokemon Card. Will show a skeleton component if props are not given.
  */
 export function SimpleCard({
   pokedex_nr,
