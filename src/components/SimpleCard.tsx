@@ -1,7 +1,6 @@
 import React from "react"
 import default_sprite from "./default-sprite.png"
 import { PokemonInfo } from "../interface/PokemonInfo"
-import { PokemonType } from "../interface/PokemonType"
 
 /**
  * Simple Pokemon Card
@@ -34,7 +33,7 @@ export function SimpleCard({
 }
 
 interface TypeList {
-  types?: PokemonType[]
+  types?: string[]
 }
 
 /**

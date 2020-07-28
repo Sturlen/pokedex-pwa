@@ -1,5 +1,3 @@
-import { PokemonType } from "./PokemonType"
-
 /**
  * Information displayed uprfront
  */
