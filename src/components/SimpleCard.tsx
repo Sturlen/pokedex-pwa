@@ -2,7 +2,6 @@ import React from "react"
 import Skeleton from "react-loading-skeleton"
 import default_sprite from "./default-sprite.png"
 import { PokemonInfo } from "../interface/PokemonInfo"
-import { number } from "zod"
 
 /**
  * Simple Pokemon Card
