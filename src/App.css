@@ -54,9 +54,10 @@
 }
 
 .SimpleCard .Name {
-  width: 4em;
+  overflow: hidden;
+  width: 8em;
   font-weight: bolder;
-  text-overflow: ellipsis;
+  height: 2em;
 }
 
 .SimpleCard .PokedexNr {
@@ -90,6 +91,7 @@
 
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: 100px;
+  margin-top: 3px;
 
   height: 1.5em;
   font-size: 0.7em;
