@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import "../unstyle.css"
 import "../App.css"
 import FetchedCard from "../components/FetchedCard"
 import makeAPI from "../api/pokeapico"
+import NumInput from "./helpers/NumInput"
 const api = makeAPI()
 
 export default {
@@ -10,22 +11,13 @@ export default {
   component: FetchedCard,
 }
 
-export const emptyCard = () => {
-  const [offset, setOffset] = useState(10)
+export const fetchOne = () => {
   return (
     <div className="App">
-      <input
-        type="number"
-        onInput={(e) => {
-          console.log("offset")
-          setOffset(e.currentTarget.valueAsNumber)
-        }}
+      <NumInput
         title="Offset"
-        min={1}
-        max={200}
-        defaultValue={10}
+        render={(offset) => <FetchedCard query={api.pokemonInfo} id={offset} />}
       />
-      <FetchedCard query={api.pokemonInfo} id={offset} />
     </div>
   )
 }
