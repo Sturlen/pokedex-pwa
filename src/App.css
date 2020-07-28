@@ -54,11 +54,14 @@
 }
 
 .SimpleCard .Name {
+  overflow: hidden;
+  width: 8em;
   font-weight: bolder;
-  text-overflow: ellipsis;
+  height: 2em;
 }
 
 .SimpleCard .PokedexNr {
+  width: 3em;
   font-weight: lighter;
 }
 
@@ -72,22 +75,26 @@
 
 .SimpleCard .Sprite {
   z-index: 1;
-  height: 3em;
-  width: 3em;
+  height: 3.5em;
+  width: 3.5em;
+  transform: translateX(5px) translateY(5px);
 }
 
 .SimpleCard .Types {
+  width: 4em;
   display: flex;
   flex-direction: column-reverse;
 }
 
-.SimpleCard .Types li {
-  background-color: rgba(255, 255, 255, 0.15);
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 100px;
+.SimpleCard .Types .Type {
+  overflow: hidden;
 
-  font-size: 0.5em;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
+  margin-top: 3px;
+
+  height: 1.5em;
+  font-size: 0.7em;
 }
 
 /* Grid */
