@@ -2,9 +2,9 @@ import React from "react"
 import "../unstyle.css"
 import "../App.css"
 import FetchedCard from "../components/FetchedCard"
-import makeAPI from "../api/pokeapico"
+import PokemonAPI from "../api/pokeapico"
 import NumInput from "./helpers/NumInput"
-const api = makeAPI()
+const api = new PokemonAPI()
 
 export default {
   title: "FetchCard",
@@ -16,7 +16,9 @@ export const fetchOne = () => {
     <div className="App">
       <NumInput
         title="Offset"
-        render={(offset) => <FetchedCard query={api.pokemonInfo} id={offset} />}
+        render={(offset) => (
+          <FetchedCard query={api.fetchPokemonInfoById} id={offset} />
+        )}
       />
     </div>
   )
