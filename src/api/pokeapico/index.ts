@@ -16,10 +16,35 @@ export default class PokeAPICo implements PokemonAPI {
   }
 
   public fetchPokemonInfoById = async (id: number) => {
-    console.log("api", this, this?.api)
-    const res = await fetch(this.api + `/pokemon/${id}`)
+    const clamped_id = Math.max(1, Math.round(id))
+    const request_url = this.api + `/pokemon/${clamped_id}`
+    let res: Response
+
+    try {
+      res = await fetch(request_url)
+    } catch (error) {
+      if (error instanceof Error) {
+        // TODO: Standardize request and error handling for the API
+        error.message = `Pokemon API request at ${request_url} failed : ${error.message}`
+        throw error
+      }
+      throw new Error("API request failed")
+    }
+
+    if (!res.ok) {
+      let text = ""
+      try {
+        text = await res.text()
+      } catch (error) {
+        throw new Error("API request failed, " + res.statusText)
+      }
+
+      if (text === "Not Found") {
+        throw new Error(`Pokemon ${clamped_id} could not be found `)
+      }
+    }
+
     const bodyjson = await res.json()
-    console.log(bodyjson)
     const pkmn: Pokemon = await PokemonSchema.nonstrict().parseAsync(bodyjson)
     return pokemonToPokemonInfo(pkmn)
   }
