@@ -5,6 +5,9 @@ import { SimpleCard } from "../components/SimpleCard"
 import { FetchedCardGrid } from "../components/FetchedCardGrid"
 import { PokemonQueryMulti } from "../interface/mock/PokemonQuerySimple"
 import { action } from "@storybook/addon-actions"
+import PokeAPICo from "../api/pokeapico"
+
+const api = new PokeAPICo()
 
 export default {
   title: "Grid/FetchingGrid",
@@ -12,6 +15,12 @@ export default {
 }
 
 export const Default = () => (
+  <div className="App">
+    <FetchedCardGrid query={api.fetchPokemonInfoList} />
+  </div>
+)
+
+export const WithPlaceholders = () => (
   <div className="App">
     <FetchedCardGrid query={PokemonQueryMulti} />
   </div>
@@ -47,7 +56,7 @@ export const OffsetAndLimit = () => {
         />
       </div>
       <FetchedCardGrid
-        query={PokemonQueryMulti}
+        query={api.fetchPokemonInfoList}
         offset={offset}
         limit={limit}
       />
