@@ -2,6 +2,7 @@ import React from "react"
 import { SimpleCard } from "./SimpleCard"
 import { useQuery } from "react-query"
 import { PokemonQuery } from "../interface/queries/PokemonQuery"
+import { usePokemonImage } from "./PokemonImageHook"
 
 interface FetchedCardProps {
   query: PokemonQuery
@@ -18,6 +19,7 @@ export default function FetchedCard({ query, id = 1 }: FetchedCardProps) {
       return query(id)
     },
   })
+  const { data: image_src } = usePokemonImage(id)
 
   if (isError) {
     return <p>error</p>
@@ -26,10 +28,10 @@ export default function FetchedCard({ query, id = 1 }: FetchedCardProps) {
   if (isLoading) {
     return <p>loading</p>
   }
-  const src = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`
+
   return (
     <div className={"FetchedCard"}>
-      <SimpleCard {...data} default_sprite_src={src} />
+      <SimpleCard {...data} default_sprite_src={image_src} />
     </div>
   )
 }
