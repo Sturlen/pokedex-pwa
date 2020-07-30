@@ -22,14 +22,25 @@ async function placeholderOnFailure<
   }
 }
 
+const DEFAULT_PLACEHOLDER = (pokedex_nr: number): PokemonInfo => {
+  return { pokedex_nr, name: "Error" }
+}
+
 /**
  * Concrete API implementation for the free pokemon API at pokeapi.co
+ * @param api_endpoint API URL
+ * @param placeholderFunc Function to create a placeholder object when a request fails.
  */
 export default class PokeAPICo implements PokemonAPI {
   private readonly api: string
+  private readonly placeholder: (id: number) => PokemonInfo
 
-  constructor(api_endpoint: string = DEFAULT_API) {
+  constructor(
+    api_endpoint: string = DEFAULT_API,
+    placeholderFunc: (id: number) => PokemonInfo = DEFAULT_PLACEHOLDER
+  ) {
     this.api = api_endpoint
+    this.placeholder = placeholderFunc
   }
 
   public fetchPokemonInfoById = async (id: number) => {
@@ -76,13 +87,8 @@ export default class PokeAPICo implements PokemonAPI {
   public fetchPokemonInfoList = async (offset: number, limit: number) => {
     const exclusive_offset = offset + 1
     // Due to an API limitation, individual requests are necessary. Should also be cached.
-
-    const makePlaceholder = (pokedex_nr: number): PokemonInfo => {
-      return { pokedex_nr, name: "Error" }
-    }
-
     const fetchPokemonOrPlaceholder = (id: number) =>
-      placeholderOnFailure(this.fetchPokemonInfoById, makePlaceholder, [id])
+      placeholderOnFailure(this.fetchPokemonInfoById, this.placeholder, [id])
 
     const pokemon_requests = range(
       exclusive_offset,
