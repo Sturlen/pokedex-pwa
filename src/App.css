@@ -74,10 +74,16 @@
 }
 
 .SimpleCard .Sprite {
+  opacity: 0;
   z-index: 1;
   height: 3.5em;
   width: 3.5em;
   transform: translateX(5px) translateY(5px);
+  transition: opacity 100ms cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.SimpleCard .Sprite.Loaded {
+  opacity: 1;
 }
 
 .SimpleCard .Types {

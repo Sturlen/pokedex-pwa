@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useCallback } from "react"
 import Skeleton from "react-loading-skeleton"
 import default_sprite from "./default-sprite.png"
 import { PokemonInfo } from "../interface/PokemonInfo"
@@ -7,6 +7,7 @@ function UpperCaseFirst(text: string) {
   return text[0].toUpperCase() + text.substring(1).toLowerCase()
 }
 
+type ImgState = "IsLoading" | "Loaded" | "Failed"
 /**
  * Simple Pokemon Card. Will show a skeleton component if props are not given.
  */
@@ -16,7 +17,11 @@ export function SimpleCard({
   types,
   default_sprite_src = default_sprite,
 }: PokemonInfo) {
+  const [img_state_css, setImageState] = useState<ImgState>("IsLoading")
+  const handleLoad = useCallback(() => setImageState("Loaded"), [])
+  const handleError = useCallback(() => setImageState("Failed"), [])
   const card_title = name ? UpperCaseFirst(name) : undefined
+
   return (
     <div className={"SimpleCard"}>
       <div className={"CardHeader"}>
@@ -27,9 +32,11 @@ export function SimpleCard({
       <div className={"SpriteBox"}>
         <Types types={types} />
         <img
-          className={"Sprite"}
+          className={`Sprite ${img_state_css}`}
           src={default_sprite_src}
           alt="Pokemon sprite"
+          onLoad={handleLoad}
+          onError={handleError}
         />
       </div>
     </div>

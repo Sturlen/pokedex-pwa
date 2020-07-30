@@ -48,13 +48,20 @@ export default function InfiniteScroller({ group_size, query }: Props) {
       dataLength={data_length}
       next={fetchMore}
       hasMore={canFetchMore || false}
-      loader={<h1>Loading </h1>}
+      loader={null}
     >
       <Grid>
         {flattened_data.map((pokemon_id) => (
           <FetchedCard query={query} id={pokemon_id} key={pokemon_id} />
         ))}
       </Grid>
+      <button
+        onClick={() => {
+          canFetchMore && fetchMore()
+        }}
+      >
+        {"Load more"}
+      </button>
     </InfiniteScroll>
   )
 }
