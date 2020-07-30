@@ -47,9 +47,9 @@ interface TypeList {
 function Types({ types, max_types = 2 }: Readonly<TypeList>) {
   return (
     <ul className={"Types"}>
-      {types?.slice(0, max_types).map((t) => (
-        <li className={"Type TypeBack"}>
-          <p>{t}</p>
+      {types?.slice(0, max_types).map((t: string) => (
+        <li className={"Type TypeBack"} key={t}>
+          <p>{UpperCaseFirst(t)}</p>
         </li>
       )) || (
         <p className={"Type"}>
