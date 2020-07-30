@@ -2,8 +2,25 @@ import { range } from "lodash"
 import { PokemonSchema, Pokemon, pokemonToPokemonInfo } from "./PokemonSchema"
 import { PokemonAPI } from "../interface/PokemonAPI"
 import { NamedResourceList } from "./APIResourceList"
+import { PokemonInfo } from "../../interface/PokemonInfo"
 
 const DEFAULT_API = "https://pokeapi.co/api/v2"
+
+async function placeholderOnFailure<
+  TRequestArgs extends Array<unknown>,
+  TReturnVal
+>(
+  request: (...args: TRequestArgs) => Promise<TReturnVal>,
+  makePlaceholder: (...args: TRequestArgs) => TReturnVal,
+  args: TRequestArgs
+) {
+  try {
+    return await request(...args)
+  } catch (e) {
+    console.error(e)
+    return makePlaceholder(...args)
+  }
+}
 
 /**
  * Concrete API implementation for the free pokemon API at pokeapi.co
@@ -59,13 +76,20 @@ export default class PokeAPICo implements PokemonAPI {
   public fetchPokemonInfoList = async (offset: number, limit: number) => {
     const exclusive_offset = offset + 1
     // Due to an API limitation, individual requests are necessary. Should also be cached.
+
+    const makePlaceholder = (pokedex_nr: number): PokemonInfo => {
+      return { pokedex_nr, name: "Error" }
+    }
+
+    const fetchPokemonOrPlaceholder = (id: number) =>
+      placeholderOnFailure(this.fetchPokemonInfoById, makePlaceholder, [id])
+
     const pokemon_requests = range(
       exclusive_offset,
       exclusive_offset + limit
-    ).map((id) => {
-      return this.fetchPokemonInfoById(id)
-    })
+    ).map(async (id) => await fetchPokemonOrPlaceholder(id))
     const results = await Promise.all(pokemon_requests)
+
     return results
   }
 }
