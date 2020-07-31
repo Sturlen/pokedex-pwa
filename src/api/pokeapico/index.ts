@@ -3,6 +3,8 @@ import { PokemonSchema, Pokemon, pokemonToPokemonInfo } from "./PokemonSchema"
 import { PokemonAPI } from "../interface/PokemonAPI"
 import { NamedResourceList } from "./APIResourceList"
 import { PokemonInfo } from "../../interface/PokemonInfo"
+import { queryCache, QueryKeyOrPredicateFn, AnyQueryKey } from "react-query"
+import { string as stringScema } from "zod"
 
 const DEFAULT_API = "https://pokeapi.co/api/v2"
 
@@ -74,7 +76,10 @@ export default class PokeAPICo implements PokemonAPI {
 
     const bodyjson = await res.json()
     const pkmn: Pokemon = await PokemonSchema.nonstrict().parseAsync(bodyjson)
-    return pokemonToPokemonInfo(pkmn)
+
+    const image_src = await this.fetchPokemonImage(id)
+
+    return pokemonToPokemonInfo(pkmn, image_src)
   }
 
   public fetchPokemonInPokedex = async () => {
@@ -97,5 +102,40 @@ export default class PokeAPICo implements PokemonAPI {
     const results = await Promise.all(pokemon_requests)
 
     return results
+  }
+
+  private pokemonImageQuery = async (pokemon_id: number) => {
+    const clamped_id = Math.max(Math.round(pokemon_id))
+    const res = await fetch(
+      `https://pokeres.bastionbot.org/images/pokemon/${clamped_id}.png`
+    )
+    const image_blob = await res.blob()
+    return URL.createObjectURL(image_blob)
+  }
+
+  public fetchPokemonImage = async (pokemon_id: number) => {
+    // Try getting from cache
+    let image_url = ""
+
+    const query_key: AnyQueryKey = ["PokemonImage", { id: pokemon_id }]
+
+    try {
+      const cached_image = queryCache.getQueryData(query_key)
+      image_url = stringScema().url().parse(cached_image) // TODO: IsUrl()
+      console.log(`Image ${pokemon_id} was retrived from cache`)
+    } catch (error) {
+      console.error(`Image ${pokemon_id} not found in cache, trying fetch`)
+    }
+
+    try {
+      image_url = await this.pokemonImageQuery(pokemon_id)
+      console.log(`Image ${pokemon_id} fetched`)
+      queryCache.setQueryData(query_key, image_url)
+      console.log(`Image ${pokemon_id} was stored in cache`)
+    } catch (error) {
+      console.error(`Image ${pokemon_id} was not found`)
+    }
+
+    return image_url
   }
 }

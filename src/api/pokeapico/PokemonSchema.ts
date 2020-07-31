@@ -17,7 +17,10 @@ export const PokemonSchema = z.object({
 
 export type Pokemon = Immutable<z.infer<typeof PokemonSchema>>
 
-export function pokemonToPokemonInfo(pkmn: Pokemon): PokemonInfo {
+export function pokemonToPokemonInfo(
+  pkmn: Pokemon,
+  image_src: string
+): PokemonInfo {
   const sorted_types = Array.from(pkmn.types)
     .sort((a, b) => a.slot - b.slot)
     .map((type_res) => type_res.type.name)
@@ -25,5 +28,6 @@ export function pokemonToPokemonInfo(pkmn: Pokemon): PokemonInfo {
     pokedex_nr: pkmn.id,
     name: pkmn.name,
     types: sorted_types,
+    default_sprite_src: image_src,
   }
 }
