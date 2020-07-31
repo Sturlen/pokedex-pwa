@@ -3,7 +3,7 @@ import { PokemonSchema, Pokemon, pokemonToPokemonInfo } from "./PokemonSchema"
 import { PokemonAPI } from "../interface/PokemonAPI"
 import { NamedResourceList } from "./APIResourceList"
 import { PokemonInfo } from "../../interface/PokemonInfo"
-import { queryCache, QueryKeyOrPredicateFn, AnyQueryKey } from "react-query"
+import { queryCache, AnyQueryKey } from "react-query"
 import { string as stringScema } from "zod"
 
 const DEFAULT_API = "https://pokeapi.co/api/v2"
