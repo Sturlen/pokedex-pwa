@@ -7,6 +7,7 @@ import NumInput from "./helpers/NumInput"
 import SelfFetchedCardGrid from "../components/SelfFetchedGrid"
 import InfiniteScroller from "../components/InfiniteScroller"
 import { Stories } from "./helpers/Stories"
+import InfiniteScrollList from "../components/InfiniteScrollList"
 const api = new PokemonAPI()
 
 export default {
@@ -47,6 +48,18 @@ export const InfiniteScrolling = () => {
   return (
     <Stories>
       <InfiniteScroller query={api.fetchPokemonInfoById} group_size={15} />
+    </Stories>
+  )
+}
+
+export const InfiniteScrollingList = () => {
+  return (
+    <Stories>
+      <InfiniteScrollList
+        query={api.fetchPokemonInfoList}
+        group_size={10}
+        offset={100}
+      />
     </Stories>
   )
 }
