@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 import React from "react"
 import { ReactQueryConfigProvider, ReactQueryProviderConfig } from "react-query"
+import { ReactQueryDevtools } from "react-query-devtools"
 import "../../unstyle.css"
 import "../../App.css"
 
 const query_config: ReactQueryProviderConfig = {
   queries: {
-    //staleTime: 60 * 60 * 1000, //1hr
-    //cacheTime: 60 * 60 * 1000, // 1hr
+    staleTime: 60 * 60 * 1000, // Do not recheck until 1hr after
+    cacheTime: 24 * 60 * 60 * 1000, // Will store data for up to 24hr
     refetchOnWindowFocus: false,
-    //isDataEqual: () => true, // Content is static
   },
 }
 
@@ -18,10 +18,13 @@ const query_config: ReactQueryProviderConfig = {
  */
 export const Stories: React.FC = ({ children }) => {
   return (
-    <div className="App">
-      <ReactQueryConfigProvider config={query_config}>
-        {children}
-      </ReactQueryConfigProvider>
-    </div>
+    <>
+      <div className="App">
+        <ReactQueryConfigProvider config={query_config}>
+          {children}
+        </ReactQueryConfigProvider>
+      </div>
+      <ReactQueryDevtools initialIsOpen={true} />
+    </>
   )
 }

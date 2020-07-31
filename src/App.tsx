@@ -1,12 +1,14 @@
 import React from "react"
 import "./App.css"
-import { SimpleCard } from "./components/SimpleCard"
+import PokemonAPI from "./api/pokeapico"
+import InfiniteScrollList from "./components/InfiniteScrollList"
+
+const api = new PokemonAPI()
 
 function App() {
   return (
     <div className="App">
-      <SimpleCard />
-      <SimpleCard />
+      <InfiniteScrollList query={api.fetchPokemonInfoList} group_size={15} />
     </div>
   )
 }

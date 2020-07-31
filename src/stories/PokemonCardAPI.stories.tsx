@@ -55,7 +55,11 @@ export const InfiniteScrolling = () => {
 export const InfiniteScrollingList = () => {
   return (
     <Stories>
-      <InfiniteScrollList query={api.fetchPokemonInfoList} group_size={15} />
+      <InfiniteScrollList
+        query={api.fetchPokemonInfoList}
+        group_size={10}
+        offset={100}
+      />
     </Stories>
   )
 }

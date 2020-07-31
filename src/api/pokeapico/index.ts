@@ -3,8 +3,6 @@ import { PokemonSchema, Pokemon, pokemonToPokemonInfo } from "./PokemonSchema"
 import { PokemonAPI } from "../interface/PokemonAPI"
 import { NamedResourceList } from "./APIResourceList"
 import { PokemonInfo } from "../../interface/PokemonInfo"
-import { queryCache, AnyQueryKey } from "react-query"
-import { string as stringScema } from "zod"
 
 const DEFAULT_API = "https://pokeapi.co/api/v2"
 
@@ -28,6 +26,9 @@ const DEFAULT_PLACEHOLDER = (pokedex_nr: number): PokemonInfo => {
   return { pokedex_nr, name: "Error" }
 }
 
+const DEFAULT_IMAGE_ENDPOINT = (id: number) =>
+  `https://pokeres.bastionbot.org/images/pokemon/${id}.png`
+
 /**
  * Concrete API implementation for the free pokemon API at pokeapi.co
  * @param api_endpoint API URL
@@ -35,14 +36,17 @@ const DEFAULT_PLACEHOLDER = (pokedex_nr: number): PokemonInfo => {
  */
 export default class PokeAPICo implements PokemonAPI {
   private readonly api: string
+  private readonly image_endpoint: (id: number) => string
   private readonly placeholder: (id: number) => PokemonInfo
 
-  constructor(
-    api_endpoint: string = DEFAULT_API,
-    placeholderFunc: (id: number) => PokemonInfo = DEFAULT_PLACEHOLDER
-  ) {
-    this.api = api_endpoint
+  constructor({
+    apiEndpoint = DEFAULT_API,
+    placeholderFunc = DEFAULT_PLACEHOLDER,
+    imageEndpoint = DEFAULT_IMAGE_ENDPOINT,
+  } = {}) {
+    this.api = apiEndpoint
     this.placeholder = placeholderFunc
+    this.image_endpoint = imageEndpoint
   }
 
   public fetchPokemonInfoById = async (id: number) => {
@@ -106,9 +110,8 @@ export default class PokeAPICo implements PokemonAPI {
 
   private pokemonImageQuery = async (pokemon_id: number) => {
     const clamped_id = Math.max(Math.round(pokemon_id))
-    const res = await fetch(
-      `https://pokeres.bastionbot.org/images/pokemon/${clamped_id}.png`
-    )
+    const image_url = this.image_endpoint(clamped_id)
+    const res = await fetch(image_url)
     const image_blob = await res.blob()
     return URL.createObjectURL(image_blob)
   }
@@ -117,21 +120,8 @@ export default class PokeAPICo implements PokemonAPI {
     // Try getting from cache
     let image_url = ""
 
-    const query_key: AnyQueryKey = ["PokemonImage", { id: pokemon_id }]
-
-    try {
-      const cached_image = queryCache.getQueryData(query_key)
-      image_url = stringScema().url().parse(cached_image) // TODO: IsUrl()
-      console.log(`Image ${pokemon_id} was retrived from cache`)
-    } catch (error) {
-      console.error(`Image ${pokemon_id} not found in cache, trying fetch`)
-    }
-
     try {
       image_url = await this.pokemonImageQuery(pokemon_id)
-      console.log(`Image ${pokemon_id} fetched`)
-      queryCache.setQueryData(query_key, image_url)
-      console.log(`Image ${pokemon_id} was stored in cache`)
     } catch (error) {
       console.error(`Image ${pokemon_id} was not found`)
     }

@@ -12,20 +12,25 @@ type Props = {
    */
   max_pokemon?: number
 
+  /**
+   * Start list from this index
+   */
+  offset?: number
+
   /** How many items to load at a time */
   group_size: number
 
   query: PokemonQueryList
 }
 
-export default function InfiniteScrollList({ group_size, query }: Props) {
-  const { data, fetchMore, canFetchMore } = useInfiniteQuery<
-    PokemonInfo[],
-    string,
-    number
-  >(
-    "pokemoninfolist" + group_size,
-    async (key, offset = 0) => {
+export default function InfiniteScrollList({
+  group_size,
+  offset: initial_offset = 0,
+  query,
+}: Props) {
+  const { data, fetchMore, canFetchMore } = useInfiniteQuery(
+    `PokemonList ${JSON.stringify({ initial_offset, group_size })}`,
+    async (key, offset = initial_offset) => {
       return await query(offset, group_size)
     },
     {
@@ -36,9 +41,6 @@ export default function InfiniteScrollList({ group_size, query }: Props) {
   )
 
   const data_length = data?.flat().length || 0
-  const flattened_data = data?.flat() || []
-
-  console.log(flattened_data)
 
   return (
     <InfiniteScroll
