@@ -87,10 +87,22 @@ export default class PokeAPICo implements PokemonAPI {
   }
 
   public fetchPokemonInPokedex = async () => {
-    const res = await fetch(this.api + `/pokemon/`)
+    const res = await fetch(`/pokemon.json`)
     const bodyjson = await res.json()
+    console.log(bodyjson)
     const resources = await NamedResourceList.parseAsync(bodyjson)
     return resources.count
+  }
+
+  public fetchAllPokemonNamesAndIds = async () => {
+    const res = await fetch(`/pokemon.json`)
+    const bodyjson = await res.json()
+    console.log(bodyjson)
+    const resources = await NamedResourceList.parseAsync(bodyjson)
+    const placeholders: PokemonInfo[] = resources.results.map((r, i) => {
+      return { pokedex_nr: i + 1, name: r.name }
+    })
+    return placeholders
   }
 
   public fetchPokemonInfoList = async (offset: number, limit: number) => {
