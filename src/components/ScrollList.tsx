@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react"
 import InfiniteLoader from "react-window-infinite-loader"
-import { FixedSizeList as List } from "react-window"
+import { FixedSizeList as List, ListChildComponentProps } from "react-window"
 
 type Props<TResult> = {
   hasNextPage: boolean
@@ -11,6 +11,7 @@ type Props<TResult> = {
     startIndex: number,
     stopIndex: number
   ) => Promise<TResult> | null
+  loading_indicator_rows?: number
   height: number | string
   width: number | string
   itemSize: number
@@ -27,13 +28,7 @@ export type makeItemRow = ({
   isItemLoaded: boolean
 }) => JSX.Element
 
-type ListRow = ({
-  index,
-  style,
-}: {
-  index: number
-  style: React.CSSProperties
-}) => JSX.Element
+type ListRow = (props: ListChildComponentProps) => JSX.Element
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const loadNothing: (startIndex: number, stopIndex: number) => null = () => null
@@ -45,6 +40,7 @@ export default function ScrollList<T>({
   hasNextPage,
   isNextPageLoading,
   items,
+  loading_indicator_rows = 1,
   loadNextPage,
   children: makeRow,
   ...props
@@ -56,11 +52,12 @@ export default function ScrollList<T>({
   // Pass an empty callback to InfiniteLoader in case it asks us to load more than once.
   const loadMoreItems = isNextPageLoading ? loadNothing : loadNextPage
 
-  // Every row is loaded except for our loading indicator row.
+  // Every row is loaded except for our loading indicator rows.
   const isItemLoaded = (index: number) => !hasNextPage || index < items.length
 
-  const Item: ListRow = ({ index, style }) =>
-    makeRow({ index, style, isItemLoaded: isItemLoaded(index) })
+  const Item: ListRow = ({ index, style }) => {
+    return makeRow({ index, style, isItemLoaded: isItemLoaded(index) })
+  }
 
   return (
     <InfiniteLoader
@@ -70,8 +67,9 @@ export default function ScrollList<T>({
     >
       {({ onItemsRendered, ref }) => (
         <List
-          itemCount={itemCount}
+          itemCount={itemCount + loading_indicator_rows}
           onItemsRendered={onItemsRendered}
+          overscanCount={loading_indicator_rows}
           ref={ref}
           {...props}
         >

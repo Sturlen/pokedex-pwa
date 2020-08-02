@@ -2,8 +2,8 @@
 import React from "react"
 import "./App.css"
 import PokemonAPI from "./api/pokeapico"
-import InfiniteScrollList from "./components/InfiniteScrollList"
 import { ReactQueryProviderConfig, ReactQueryConfigProvider } from "react-query"
+import PokemonScrollList from "./components/PokemonScrollList"
 
 const api = new PokemonAPI()
 
@@ -23,9 +23,11 @@ export const App: React.FC = () => {
     <div className="App">
       <ReactQueryConfigProvider config={query_config}>
         {
-          <InfiniteScrollList
-            query={api.fetchPokemonInfoList}
-            group_size={15}
+          <PokemonScrollList
+            api={api}
+            height={800}
+            width={600}
+            itemSize={200}
           />
         }
       </ReactQueryConfigProvider>
