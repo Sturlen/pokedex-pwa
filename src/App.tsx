@@ -3,7 +3,7 @@ import React from "react"
 import "./App.css"
 import PokemonAPI from "./api/pokeapico"
 import { ReactQueryProviderConfig, ReactQueryConfigProvider } from "react-query"
-import PokemonScrollList from "./components/PokemonScrollList"
+import { PokemonScrollListAutoSize as PokemonList } from "./components/PokemonScrollList"
 
 const api = new PokemonAPI()
 
@@ -22,14 +22,7 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       <ReactQueryConfigProvider config={query_config}>
-        {
-          <PokemonScrollList
-            api={api}
-            height={800}
-            width={600}
-            itemSize={200}
-          />
-        }
+        {<PokemonList api={api} itemSize={200} />}
       </ReactQueryConfigProvider>
     </div>
   )

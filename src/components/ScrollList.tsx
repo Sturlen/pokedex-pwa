@@ -69,7 +69,7 @@ export default function ScrollList<T>({
         <List
           itemCount={itemCount + loading_indicator_rows}
           onItemsRendered={onItemsRendered}
-          overscanCount={loading_indicator_rows}
+          overscanCount={1}
           ref={ref}
           {...props}
         >

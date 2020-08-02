@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react"
 import { useQuery, useInfiniteQuery } from "react-query"
+import AutoSizer, { Size } from "react-virtualized-auto-sizer"
 
 import { PokemonAPI } from "../api/interface/PokemonAPI"
 import ScrollList, { makeItemRow } from "./ScrollList"
@@ -11,10 +12,10 @@ type Props = {
   api: PokemonAPI
   offset?: number
   group_size?: number
-  readonly height: number | string
-  width: number | string
   itemSize: number
 }
+
+type ListProps = Props & Size
 
 /** Display a scrollable list of Pokemon */
 export default function PokemonScrollList({
@@ -22,7 +23,7 @@ export default function PokemonScrollList({
   offset: initial_offset = 0,
   group_size = 20,
   ...props
-}: Props) {
+}: ListProps) {
   const { data: name_list } = useQuery(
     "PokemonNames",
     api.fetchAllPokemonNamesAndIds
@@ -55,7 +56,19 @@ export default function PokemonScrollList({
       content = <SimpleCard {...flattended_data[index]} />
     }
 
-    return <div style={style}>{content}</div>
+    return (
+      <div
+        style={{
+          padding: "10px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          ...style,
+        }}
+      >
+        {content}
+      </div>
+    )
   }
   return (
     <ScrollList<PokemonInfo>
@@ -68,5 +81,15 @@ export default function PokemonScrollList({
     >
       {makeRow}
     </ScrollList>
+  )
+}
+
+export function PokemonScrollListAutoSize({ ...props }: Props) {
+  return (
+    <AutoSizer>
+      {({ height, width }) => (
+        <PokemonScrollList height={height} width={width} {...props} />
+      )}
+    </AutoSizer>
   )
 }
