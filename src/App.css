@@ -1,4 +1,17 @@
+html {
+  background-color: #282c34;
+}
+
+body {
+  overflow-y: auto;
+}
+
 .App {
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -7,6 +20,7 @@
   -moz-osx-font-smoothing: grayscale;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-color: #282c34;
 }
 
 :root {
@@ -21,27 +35,23 @@
     monospace;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .SimpleCard {
   background-color: var(--SimpleCardBgColor);
-  border-radius: 10px;
+  border-radius: 20px;
 
   position: relative;
   z-index: 0;
   overflow: hidden;
-  padding: 5px;
 
-  width: 9em;
+  padding: 10px 20px;
+
+  width: inherit;
+  height: inherit;
+  max-width: 600px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .SimpleCard .CardHeader {
@@ -57,12 +67,14 @@
   overflow: hidden;
   width: 8em;
   font-weight: bolder;
+  text-align: start;
   height: 2em;
 }
 
 .SimpleCard .PokedexNr {
   width: 3em;
   font-weight: lighter;
+  text-align: end;
 }
 
 .SimpleCard .SpriteBox {
@@ -74,10 +86,10 @@
 }
 
 .SimpleCard .Sprite {
-  opacity: 0;
+  opacity: 1;
   z-index: 1;
-  height: 3.5em;
-  width: 3.5em;
+  height: 100px;
+  width: 100px;
   transform: translateX(5px) translateY(5px);
 }
 
