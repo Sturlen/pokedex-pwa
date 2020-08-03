@@ -39,7 +39,7 @@ jobs:
         with:
           tag_name: v${{ env.PACKAGE_VERSION }}
           release_name: Release v${{ env.PACKAGE_VERSION }}
-          changelog: Changes in v${{ env.PACKAGE_VERSION }}
+          changelog: Changelog for v${{ env.PACKAGE_VERSION }} goes here
           draft: false
           prerelease: false
       - name: Upload Release Asset
