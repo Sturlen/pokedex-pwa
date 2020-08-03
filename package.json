@@ -29,15 +29,17 @@
     "react-window-infinite-loader": "^1.0.5",
     "rimraf": "^3.0.2",
     "typescript": "^3.9.7",
+    "version-bump-prompt": "^6.0.6",
     "zod": "^1.10.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "prebuild": "rimraf build",
     "build": "react-scripts build",
-    "zip": "bestzip bundle.zip build/*",
+    "zip": "cd ./build && bestzip ../bundle.zip *",
     "test": "react-scripts test",
     "lint": "eslint ./src/**/*.{ts,tsx,js,jsx}",
+    "bump": "bump --commit --tag --push",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
