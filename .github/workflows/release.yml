@@ -23,7 +23,8 @@ jobs:
         npm run zip
         
     - name: Set env
-      run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10}) # Get 10 la
+      run: | 
+        echo '::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})'
       
     - name: Get commit message
       id: commit-msg
