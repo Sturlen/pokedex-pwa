@@ -11,6 +11,7 @@
 # production
 /build
 /dist
+bundle.zip
 
 # misc
 .DS_Store
