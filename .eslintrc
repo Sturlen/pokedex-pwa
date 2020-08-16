@@ -25,6 +25,7 @@
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "camelcase": "off",
-    "@typescript-eslint/camelcase": ["off"]
+    "@typescript-eslint/camelcase": ["off"],
+    "react/prop-types": "off"
   }
 }
