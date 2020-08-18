@@ -1,30 +1,25 @@
-/* eslint-disable react/prop-types */
 import React from "react"
-import "./App.css"
-import PokemonAPI from "./api/pokeapico"
-import { ReactQueryProviderConfig, ReactQueryConfigProvider } from "react-query"
-import { PokemonScrollListAutoSize as PokemonList } from "./components/PokemonScrollList"
+import { Typography } from "@material-ui/core"
+import PokemonIcon from "@material-ui/icons/Favorite"
+import MovesIcon from "@material-ui/icons/List"
+import AppNavigation from "./components/AppNavigation"
 
-const api = new PokemonAPI()
-
-const query_config: ReactQueryProviderConfig = {
-  queries: {
-    staleTime: 60 * 60 * 1000, // Do not recheck until 1hr after
-    cacheTime: 24 * 60 * 60 * 1000, // Will store data for up to 24hr
-    refetchOnWindowFocus: false,
-  },
-}
-
-/**
- * Injects common css and configs
- */
 export const App: React.FC = () => {
   return (
-    <div className="App">
-      <ReactQueryConfigProvider config={query_config}>
-        {<PokemonList api={api} itemSize={200} />}
-      </ReactQueryConfigProvider>
-    </div>
+    <AppNavigation
+      tabs={[
+        {
+          icon: <PokemonIcon />,
+          label: "Pokèmon",
+          content: <Typography variant="h1">{"Pokemon Page"}</Typography>,
+        },
+        {
+          icon: <MovesIcon />,
+          label: "Moves",
+          content: <Typography variant="h1">{"Moves Page"}</Typography>,
+        },
+      ]}
+    ></AppNavigation>
   )
 }
 
