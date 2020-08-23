@@ -1,14 +1,7 @@
 import React from "react"
 import { Typography } from "@material-ui/core"
 
-export const PokemonListPage = () => {
-  return (
-    <Typography>
-      Imagine a whole lot of Pokémon. Use your imaagination. I know you have
-      one.
-    </Typography>
-  )
-}
+export { default as PokemonListPage } from "./PokemonListPage"
 
 export const PokemonDetailsPage = () => {
   return <Typography>Way too much detail on a single Pokèmon.</Typography>
