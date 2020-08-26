@@ -1,44 +1,34 @@
 import React from "react"
 import { BrowserRouter as Router } from "react-router-dom"
-import { RouteNavigation, NavPage } from "./components/RouteNavigation"
+import { RouteNavigation, NavAction } from "./components/RouteNavigation"
 import PokemonIcon from "@material-ui/icons/Favorite"
 import MoveIcon from "@material-ui/icons/List"
-import * as PageViews from "./Pages"
-import { Routes } from "./Routes"
+import TopLevelRoutes from "./Routes"
+import RouteRenderer from "./components/RouteRenderer"
 
-const paths = {
-  pokemonList: "/pokemon",
-  pokemonDetails: "/pokemon/:id",
-  moveList: "/moves",
-  moveDetails: "moves/:id",
-}
+const { pokemon, moves } = TopLevelRoutes
 
-const pages: NavPage[] = [
+const nav_actions: NavAction[] = [
   {
-    path: paths.pokemonList,
-    render: PageViews.PokemonListPage,
-    button: {
-      icon: <PokemonIcon />,
-      label: "Pokemon",
-    },
+    path: pokemon.path,
+    icon: <PokemonIcon />,
+    label: "Pokemon",
   },
   {
-    path: paths.moveList,
-    render: PageViews.MoveListPage,
-    button: {
-      icon: <MoveIcon />,
-      label: "Moves",
-    },
+    path: moves.path,
+    icon: <MoveIcon />,
+    label: "Moves",
   },
 ]
 
-const default_path = paths.pokemonList
+const default_route = pokemon
 
 export const App: React.FC = () => {
   return (
     <Router>
-      <Routes />
-      <RouteNavigation pages={pages} defaultPath={default_path} />
+      <RouteNavigation actions={nav_actions}>
+        <RouteRenderer routes={TopLevelRoutes} defaultRoute={default_route} />
+      </RouteNavigation>
     </Router>
   )
 }

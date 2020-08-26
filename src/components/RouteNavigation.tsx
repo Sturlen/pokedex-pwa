@@ -1,38 +1,24 @@
 import React from "react"
 import { Add as DefaultIcon } from "@material-ui/icons"
 
-import {
-  useLocation,
-  Switch,
-  Route,
-  useHistory,
-  Redirect,
-} from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
 
-import { BottomNav, Route as NavAction } from "./AppNav"
+import { BottomNav, Route } from "./AppNav"
 
-export type NavPage = {
+export type NavAction = {
   path: string
-  render: React.ReactNode
-  /** The container pages will be rendered inside. */
-  button: {
-    icon?: React.ReactNode
-    label?: string
-  }
+  icon?: React.ReactNode
+  label?: string
 }
 
 export type NavProps = {
-  pages: NavPage[]
-  defaultPath?: string
+  actions: NavAction[]
 }
 
 /**
  * Switch content based on the given routes.
  */
-export const RouteNavigation: React.FC<NavProps> = ({
-  pages,
-  defaultPath = "",
-}) => {
+export const RouteNavigation: React.FC<NavProps> = ({ actions, children }) => {
   const hist = useHistory()
   const loc = useLocation()
   const handleChange = (newRoute: string) => {
@@ -40,28 +26,20 @@ export const RouteNavigation: React.FC<NavProps> = ({
     hist.push(newRoute)
   }
 
-  const actions: NavAction[] = pages.map((page) => {
+  const routes: Route[] = actions.map((page) => {
     return {
       to: page.path,
-      buttonIcon: page.button.icon || <DefaultIcon />,
-      buttonLabel: page.button.label || page.path,
+      buttonIcon: page.icon || <DefaultIcon />,
+      buttonLabel: page.label || page.path,
     }
   })
 
   return (
     <>
-      <Switch>
-        {pages.map(({ path, render }) => (
-          <Route path={path} key={path}>
-            {render}
-          </Route>
-        ))}
-
-        <Redirect to={defaultPath} />
-      </Switch>
+      {children}
       <BottomNav
         currentRoute={loc.pathname}
-        routes={actions}
+        routes={routes}
         onTabChange={handleChange}
       />
     </>
