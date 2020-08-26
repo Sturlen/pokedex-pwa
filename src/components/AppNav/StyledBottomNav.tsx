@@ -4,12 +4,9 @@ import { BottomNav, TabNavigation } from "./"
 import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles(() => ({
-  root: {
+  container: {
     minHeight: "100vh",
-    bottom: "0px",
-    left: "0px",
-    right: "0px",
-    top: "0px",
+    overflowX: "hidden",
   },
   nav: {
     position: "sticky",
@@ -26,10 +23,10 @@ const StyledBottomNavigation: React.FC<TabNavigation> = ({
 }) => {
   const classes = useStyles()
   return (
-    <div>
-      <div className={classes.root}>{children}</div>
+    <>
+      <div className={classes.container}>{children}</div>
       <BottomNav className={classes.nav} {...props} />
-    </div>
+    </>
   )
 }
 
