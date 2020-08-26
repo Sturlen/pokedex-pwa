@@ -4,6 +4,7 @@ import { RouteNavigation, NavPage } from "./components/RouteNavigation"
 import PokemonIcon from "@material-ui/icons/Favorite"
 import MoveIcon from "@material-ui/icons/List"
 import * as PageViews from "./Pages"
+import { Routes } from "./Routes"
 
 const paths = {
   pokemonList: "/pokemon",
@@ -36,6 +37,7 @@ const default_path = paths.pokemonList
 export const App: React.FC = () => {
   return (
     <Router>
+      <Routes />
       <RouteNavigation pages={pages} defaultPath={default_path} />
     </Router>
   )
