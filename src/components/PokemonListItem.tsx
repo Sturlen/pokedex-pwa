@@ -24,6 +24,7 @@ const PokemonListItem: React.FC<ItemProps> = ({ id }) => (
     <img
       width={"100%"}
       src={`https://pokeres.bastionbot.org/images/pokemon/${id}.png`}
+      alt="Pokemon"
       draggable={false}
     />
     <p>{"Pokemon Name"}</p>
