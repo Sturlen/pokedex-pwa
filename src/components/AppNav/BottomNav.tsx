@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
  *
  */
 const BottomNav: React.FC<TabNavigation> = ({
+  className,
   currentRoute,
   routes,
   onTabChange,
@@ -31,7 +32,7 @@ const BottomNav: React.FC<TabNavigation> = ({
 
   return (
     <BottomNavigation
-      className={classes.nav}
+      className={className || classes.nav}
       value={currentRoute}
       onChange={handleChange}
     >

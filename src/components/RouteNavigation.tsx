@@ -3,7 +3,7 @@ import { Add as DefaultIcon } from "@material-ui/icons"
 
 import { useLocation, useHistory } from "react-router-dom"
 
-import { BottomNav, Route } from "./AppNav"
+import { StyledBottmNav, Route } from "./AppNav"
 
 export type NavAction = {
   path: string
@@ -35,14 +35,13 @@ export const RouteNavigation: React.FC<NavProps> = ({ actions, children }) => {
   })
 
   return (
-    <>
+    <StyledBottmNav
+      currentRoute={loc.pathname}
+      routes={routes}
+      onTabChange={handleChange}
+    >
       {children}
-      <BottomNav
-        currentRoute={loc.pathname}
-        routes={routes}
-        onTabChange={handleChange}
-      />
-    </>
+    </StyledBottmNav>
   )
 }
 

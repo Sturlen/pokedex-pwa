@@ -14,6 +14,7 @@ export type Route = {
  * Must be surrounded by a Router.
  */
 export type TabNavigation = {
+  className?: string
   currentRoute?: string
   routes: Route[]
   onTabChange?: (tab: string) => void
