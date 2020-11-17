@@ -1,30 +1,35 @@
-/* eslint-disable react/prop-types */
 import React from "react"
-import "./App.css"
-import PokemonAPI from "./api/pokeapico"
-import { ReactQueryProviderConfig, ReactQueryConfigProvider } from "react-query"
-import { PokemonScrollListAutoSize as PokemonList } from "./components/PokemonScrollList"
+import { BrowserRouter as Router } from "react-router-dom"
+import { RouteNavigation, NavAction } from "./components/RouteNavigation"
+import PokemonIcon from "@material-ui/icons/Favorite"
+import MoveIcon from "@material-ui/icons/List"
+import TopLevelRoutes from "./Routes"
+import RouteRenderer from "./components/RouteRenderer"
 
-const api = new PokemonAPI()
+const { pokemon, moves } = TopLevelRoutes
 
-const query_config: ReactQueryProviderConfig = {
-  queries: {
-    staleTime: 60 * 60 * 1000, // Do not recheck until 1hr after
-    cacheTime: 24 * 60 * 60 * 1000, // Will store data for up to 24hr
-    refetchOnWindowFocus: false,
+const nav_actions: NavAction[] = [
+  {
+    path: pokemon.path,
+    icon: <PokemonIcon />,
+    label: "Pokemon",
   },
-}
+  {
+    path: moves.path,
+    icon: <MoveIcon />,
+    label: "Moves",
+  },
+]
 
-/**
- * Injects common css and configs
- */
+const default_route = pokemon
+
 export const App: React.FC = () => {
   return (
-    <div className="App">
-      <ReactQueryConfigProvider config={query_config}>
-        {<PokemonList api={api} itemSize={200} />}
-      </ReactQueryConfigProvider>
-    </div>
+    <Router>
+      <RouteNavigation actions={nav_actions}>
+        <RouteRenderer routes={TopLevelRoutes} defaultRoute={default_route} />
+      </RouteNavigation>
+    </Router>
   )
 }
 
