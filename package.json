@@ -19,7 +19,7 @@
     "@types/react-window-infinite-loader": "^1.0.3",
     "bestzip": "^2.1.6",
     "cross-var": "^1.1.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.23",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-infinite-scroll-component": "^5.0.5",
